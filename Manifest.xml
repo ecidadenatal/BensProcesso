@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <plugin name="BensProcesso" label="Bens Processo" plugin-version="1.0" ecidade-version="2.3.47" id-modulo="439">
+   <id id="BensProcesso"> </id>
+   <files>
+     <!-- classe -->
+     <file name="db_bensprocesso_classe.php"    path="/classes/db_bensprocesso_classe.php" />
+     <!-- outro -->
+     <file name="BensProcesso.xml"             path="/modification/xml/BensProcesso.xml" />
+     <file name="plugins.bensprocesso.dd.xml"  path="/dd/tabelas/plugins.bensprocesso.dd.xml" />
+     <file name="pat2_geralbensprocesso001.php"  path="/pat2_geralbensprocesso001.php" />
+     <file name="pat2_geralbensprocesso002.php"  path="/pat2_geralbensprocesso002.php" />
+   </files>
+   
+   <estrutura install="/instalacao.sql" uninstall="/desinstalacao.sql" ></estrutura>
+   
+   <menus>
+      <menu type="3">
+        <item name="Geral de Bens (Natal)" file="pat2_geralbensprocesso001.php" liberado-cliente="true" ></item>
+      </menu>
+    </menus>
+    
+  </plugin>
+</manifest>

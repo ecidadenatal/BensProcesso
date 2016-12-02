@@ -1,0 +1,57 @@
+<?xml version="1.0" standalone="yes" ?>
+<table name="plugins.bensprocesso" description="Processo de compra do Bem" prefix="" label="Processo de compra do Bem" type="0">
+  <fields>
+    <field name="sequencial"
+           conteudo="int4"
+           description="Sequencial"
+           inivalue="0"
+           label="Sequencial"
+           size="10"
+           null="f"
+           uppercase="f"
+           autocompl="f"
+           aceitatipo="1"
+           tipoobj="text"
+           labelrel="Sequencial"
+           reference=""
+           ispk="t"
+           hassequence="t">
+      <sequence name="plugins.bensprocesso_sequencial_seq"></sequence>
+    </field>
+    <field name="bem"
+           conteudo="int4"
+           description="Código do Bem"
+           inivalue="0"
+           label="Código do Bem"
+           size="10"
+           null="f"
+           uppercase="f"
+           autocompl="f"
+           aceitatipo="1"
+           tipoobj="text"
+           labelrel="Código do Bem"
+           reference=""
+           ispk="f"
+           hassequence="f">
+    </field>
+    <field name="processo"
+           conteudo="varchar"
+           description="Processo"
+           inivalue="0"
+           label="Processo"
+           size="10"
+           null="f"
+           uppercase="f"
+           autocompl="f"
+           aceitatipo="1"
+           tipoobj="text"
+           labelrel="Processo"
+           reference=""
+           ispk="f"
+           hassequence="f">
+    </field>
+  </fields>
+  <primarykey>
+    <fieldpk name="sequencial"></fieldpk>
+  </primarykey>
+</table>

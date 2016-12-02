@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<modification>
+  <name>BensProcesso</name>
+  <id>BensProcesso</id>
+  <ecidade-version>2.3.47</ecidade-version>
+  
+  <file path='forms/db_frm_bensnovo.php'>
+    <operation>
+      <search regex="true"><![CDATA[(db_input\("tipo_inclui".*\n*.*\?\>\n*.*\<\/td\>)]]></search>
+      <add>
+        <![CDATA[$1
+        
+        <!-- inicio plugin BensProcesso -->
+          <tr>
+            <td> <b>Processo:</b></td>
+            <td colspan="5"> 
+              <?php
+                db_input('processo',10,0,true,'text',$db_opcao,'');
+	          ?>
+	        </td>  
+          </tr>
+        <!-- fim plugin BensProcesso -->
+        ]]>
+      </add>
+    </operation> 
+
+    <operation>
+      <search regex="true"><![CDATA[(oObject.obser\s*=.*;)]]></search>
+      <add>
+        <![CDATA[
+   //inicio plugin BensProcesso
+   oObject.processo = encodeURIComponent(tagString($F("processo")));
+   //fim plugin BensProcesso
+   
+   $1]]>
+      </add>
+    </operation> 
+    
+    <operation>
+      <search regex="true"><![CDATA[(\$\("obser"\).value\s*=\s*oRetorno.*;)]]></search>
+      <add>
+        <![CDATA[$1
+        
+  //inicio plugin BensProcesso
+  $("processo").value               = oRetorno.dados.processo.urlDecode();
+  //fim plugin BensProcesso
+  ]]>
+      </add>
+    </operation>       
+  </file>
+  
+  <file path='forms/db_frm_bensglobalnovo.php'>
+    <operation>
+      <search regex="true"><![CDATA[(db_input\("tipo_inclui".*\n*.*\?\>\n*.*\<\/td\>)]]></search>
+      <add>
+        <![CDATA[$1
+        
+        <!-- inicio plugin BensProcesso -->
+          <tr>
+            <td> <b>Processo:</b></td>
+            <td colspan="5"> 
+              <?php
+                db_input('processo',10,0,true,'text',$db_opcao,'');
+	          ?>
+	        </td>  
+          </tr>
+        <!-- fim plugin BensProcesso -->
+        ]]>
+      </add>
+    </operation> 
+
+    <operation>
+      <search regex="true"><![CDATA[(oObject.obser\s*=.*;)]]></search>
+      <add>
+        <![CDATA[
+   //inicio plugin BensProcesso
+   oObject.processo = encodeURIComponent(tagString($F("processo")));
+   //fim plugin BensProcesso
+   
+   $1]]>
+      </add>
+    </operation> 
+    
+    <operation>
+      <search regex="true"><![CDATA[(\$\('t52_descr'\).value\s*=\s*oRetorno.*;)]]></search>
+      <add>
+        <![CDATA[$1
+        
+  //inicio plugin BensProcesso
+  $("processo").value               = oRetorno.dados.processo.urlDecode();
+  //fim plugin BensProcesso
+  ]]>
+      </add>
+    </operation>     
+  </file>    
+  
+  <file path='pat1_bensnovo.RPC.php'>
+    <operation>
+      <search regex="true"><![CDATA[(\$oBem->salvar\(\);)]]></search>
+      <add>
+        <![CDATA[
+      //inicio plugin BensProcesso
+      $oBem->setProcesso(addslashes(db_stdClass::normalizeStringJson($oParam->processo)));
+      //fim plugin BensProcesso
+
+      $1]]>
+      </add>
+    </operation>  
+    
+    <operation>
+      <search regex="true"><![CDATA[(\$oDadosBem->t64_class\s*=.*;)]]></search>
+      <add>
+        <![CDATA[
+  //inicio plugin BensProcesso
+  $oDadosBem->processo      = urlencode($oBem->getProcesso());
+  //fim plugin BensProcesso
+  
+  $1]]>
+      </add>
+    </operation>            
+  </file> 
+  
+  <file path='pat1_benslotenovo.RPC.php'>
+    <operation>
+      <search regex="true"><![CDATA[(\$oBem->salvar\(\);)]]></search>
+      <add>
+        <![CDATA[
+      //inicio plugin BensProcesso
+      $oBem->setProcesso(addslashes(db_stdClass::normalizeStringJson($oParam->processo)));
+      //fim plugin BensProcesso
+
+      $1]]>
+      </add>
+    </operation>  
+    
+    <operation>
+      <search regex="true"><![CDATA[(\$oDadosBem->t64_class\s*=.*;)]]></search>
+      <add>
+        <![CDATA[
+  //inicio plugin BensProcesso
+  $oDadosBem->processo      = urlencode($oBem->getProcesso());
+  //fim plugin BensProcesso
+  
+  $1]]>
+      </add>
+    </operation>            
+  </file>      
+  
+  <file path='model/patrimonio/Bem.model.php'>
+    <operation>
+      <search regex="true"><![CDATA[(private\s*\$iTipoAquisicao;)]]></search>
+      <add>
+        <![CDATA[$1
+        
+  //inicio plugin BensProcesso
+  protected $sProcesso;
+  
+  function setProcesso($sProcesso) {
+  	$this->sProcesso = $sProcesso;
+  }
+  
+  function getprocesso() {
+  	return $this->sProcesso;
+  }
+  //fim plugin BensProcesso]]>
+      </add>
+    </operation>     
+    <operation>
+      <search regex="true"><![CDATA[(\$sSqlSituacaoBem\s*\.=.*as situacao.*;)]]></search>
+      <add>
+        <![CDATA[$1
+    //inicio plugin BensProcesso
+    $sSqlSituacaoBem .= "(select processo from plugins.bensprocesso where bem = t52_bem) as processo, ";
+    //fim plugin BensProcesso
+]]>
+      </add>
+    </operation>  
+    <operation>
+      <search regex="true"><![CDATA[(\$this->iCodigoCgm\s*=.*numcgm;)]]></search>
+      <add>
+        <![CDATA[
+    //inicio plugin BensProcesso
+    $this->setProcesso($oDadosBem->processo);
+    //fim plugin BensProcesso
+    
+    $1]]>
+      </add>
+    </operation>   
+    <operation>
+      <search regex="true"><![CDATA[(\$lRealizarEscrituracao\s*=\s*\$this->criaVinculoBemNotas\(\);)]]></search>
+      <add>
+        <![CDATA[
+    //inicio plugin BensProcesso
+    $oBensProcesso = db_utils::getDao("bensprocesso");
+    
+    $oBensProcesso->excluir(null, "bem = {$oDaoBens->t52_bem}");
+    if ($oBensProcesso->erro_status == 0) {
+    	throw new Exception($oBensProcesso->erro_msg);
+    }
+    
+    $oBensProcesso->bem = $oDaoBens->t52_bem;
+    $oBensProcesso->processo = $this->sProcesso;
+    $oBensProcesso->incluir();
+    if ($oBensProcesso->erro_status == 0) {
+    	throw new Exception($oBensProcesso->erro_msg);
+    }
+    //fim plugin BensProcesso
+    
+    $1]]>
+      </add>
+    </operation>              
+  </file>   
+</modification>
