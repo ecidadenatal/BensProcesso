@@ -24,11 +24,11 @@
  * Copia da licenca no diretorio licenca/licenca_en.txt
  * licenca/licenca_pt.txt
  */
-require_once ("fpdf151/pdf.php");
-require_once ("libs/db_sql.php");
-require_once ("classes/db_bens_classe.php");
-require_once ("classes/db_bensbaix_classe.php");
-require_once ("classes/db_cfpatriplaca_classe.php");
+require_once(modification("fpdf151/pdf.php"));
+require_once(modification("libs/db_sql.php"));
+require_once(modification("classes/db_bens_classe.php"));
+require_once(modification("classes/db_bensbaix_classe.php"));
+require_once(modification("classes/db_cfpatriplaca_classe.php"));
 
 $clbens = new cl_bens ();
 $clbensbaix = new cl_bensbaix ();
